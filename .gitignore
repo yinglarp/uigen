@@ -4,3 +4,9 @@ CLAUDE.local.md
 node_modules/
 .next/
 prisma/dev.db
+
+# Local tooling & run artifacts
+.claude/
+.playwright-mcp/
+logs.txt
+card-preview.png
