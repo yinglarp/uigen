@@ -24,11 +24,21 @@ export function ChatInterface() {
 
   return (
     <div className="flex flex-col h-full p-4 overflow-hidden">
-      <ScrollArea ref={scrollAreaRef} className="flex-1 overflow-hidden">
-        <div className="pr-4">
+      {messages.length === 0 ? (
+        // No messages to scroll — render the empty state directly in the
+        // flex-1 region so its `h-full` resolves and it centers vertically.
+        // (Inside ScrollArea, Radix's internal `display: table` wrapper
+        // collapses to content height and breaks vertical centering.)
+        <div className="flex-1 overflow-hidden">
           <MessageList messages={messages} isLoading={status === "streaming"} />
         </div>
-      </ScrollArea>
+      ) : (
+        <ScrollArea ref={scrollAreaRef} className="flex-1 overflow-hidden">
+          <div className="pr-4">
+            <MessageList messages={messages} isLoading={status === "streaming"} />
+          </div>
+        </ScrollArea>
+      )}
       <div className="mt-4 flex-shrink-0">
         <MessageInput
           input={input}
